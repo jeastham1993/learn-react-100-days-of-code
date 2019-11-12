@@ -1,4 +1,6 @@
 # Introduction
+Components are the core building block of React apps. Actually, React really is just a library for creating components in its core.
+
 Typically, a single app component is rendered in index.js. Normally this is App.js. 
 
 This contains a single app component
@@ -27,3 +29,8 @@ class MyCustomComponent extends Component {
 export default MyCustomComponent
 
 ```
+
+## What are the benefits?
+
+- Focused code and separated files for ease of development
+- Reusable and configurable in multiple places

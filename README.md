@@ -14,7 +14,7 @@ As part of a 100 days of code challenge, I'm going to be working through the htt
 4. Use a development server - Use a local web server
 
 ## Create React App
-https://github.com/facebook/create-react-app
+[https://github.com/facebook/create-react-app](https://github.com/facebook/create-react-app)
 
 ### Getting started
 
