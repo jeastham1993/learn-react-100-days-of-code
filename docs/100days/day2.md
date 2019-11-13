@@ -1,4 +1,5 @@
 # Day 2
+
 - [Learnt about state and why the state propery is special](../understanding-state)
 - [Manipulating state and how to cause a DOM refresh](../understanding-state)
 - [Learnt about events and how to handle events with methods + passing events to children](../handling-events-with-methods)
