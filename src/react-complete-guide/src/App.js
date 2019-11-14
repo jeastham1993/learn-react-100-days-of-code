@@ -2,8 +2,22 @@ import React, {
   Component
 } from 'react';
 import './App.css';
-import './Person/Person.css';
 import Person from './Person/Person';
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+    background-color: ${props => props.alt === true ? 'red' : 'green'};
+    color: white;
+    font: inherit;
+    border: 1px solid green;
+    padding: 8px;
+    cursor: pointer;
+
+    &:hover{
+      background-color: ${props => props.alt === true ? 'lightsalmon' : 'lightgreen'};
+      color: black;
+    }
+`
 
 class App extends Component {
 
@@ -69,7 +83,7 @@ class App extends Component {
     let persons = null;
 
     if (this.state.showPersons) {
-      persons = ( < div > {
+      persons = ( <div> {
         this.state.persons.map((person, index) => {
           return <Person
           click = {
@@ -89,19 +103,35 @@ class App extends Component {
           }
           />
         })
-      } < /div>);
+      } </div>);
+
+
+
     }
-    return ( <
-        div className = "App" >
-        <
-        h1 > Hi, I 'm a React app</h1>  <
-        p > This is really working. < /p>  <
-        button onClick = {
+
+    let paragraphClasses = [];
+
+    if (this.state.persons.length <= 2){
+      paragraphClasses.push('red');
+    }
+
+    if (this.state.persons.length <= 1)
+    {
+      paragraphClasses.push('bold');
+    }
+    
+    return ( 
+      <div className = "App" >
+       <h1> Hi, I 'm a React app</h1>  
+        <p className={paragraphClasses.join(' ')}>This is really working.</p>  
+        <StyledButton alt={this.state.showPersons} onClick = {
           this.togglePersonsHandler
-        } > Toggle persons < /button> {
-        persons
-      } <
-      /div>
+        }
+        >Toggle persons</StyledButton> 
+        {
+          persons
+      } 
+      </div>
   );
 }
 }
