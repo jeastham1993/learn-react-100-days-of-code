@@ -3,21 +3,6 @@ import React, {
 } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import styled from 'styled-components';
-
-const StyledButton = styled.button`
-    background-color: ${props => props.alt === true ? 'red' : 'green'};
-    color: white;
-    font: inherit;
-    border: 1px solid green;
-    padding: 8px;
-    cursor: pointer;
-
-    &:hover{
-      background-color: ${props => props.alt === true ? 'lightsalmon' : 'lightgreen'};
-      color: black;
-    }
-`
 
 class App extends Component {
 
@@ -124,10 +109,10 @@ class App extends Component {
       <div className = "App" >
        <h1> Hi, I 'm a React app</h1>  
         <p className={paragraphClasses.join(' ')}>This is really working.</p>  
-        <StyledButton alt={this.state.showPersons} onClick = {
+        <button className="button" alt={this.state.showPersons} onClick = {
           this.togglePersonsHandler
         }
-        >Toggle persons</StyledButton> 
+        >Toggle persons</button> 
         {
           persons
       } 
