@@ -1,9 +1,8 @@
 import React, {
   Component
 } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
-
 class App extends Component {
 
   state = {
@@ -66,8 +65,12 @@ class App extends Component {
 
   render() {
     let persons = null;
+    let btnClass = [classes.button];
 
     if (this.state.showPersons) {
+      console.log(classes.Red);
+      btnClass.push(classes.Red);
+
       persons = ( <div> {
         this.state.persons.map((person, index) => {
           return <Person
@@ -89,27 +92,24 @@ class App extends Component {
           />
         })
       } </div>);
-
-
-
     }
 
     let paragraphClasses = [];
 
     if (this.state.persons.length <= 2){
-      paragraphClasses.push('red');
+      paragraphClasses.push(classes.red);
     }
 
     if (this.state.persons.length <= 1)
     {
-      paragraphClasses.push('bold');
+      paragraphClasses.push(classes.bold);
     }
     
     return ( 
-      <div className = "App" >
+      <div className = {classes.App} >
        <h1> Hi, I 'm a React app</h1>  
         <p className={paragraphClasses.join(' ')}>This is really working.</p>  
-        <button className="button" alt={this.state.showPersons} onClick = {
+        <button className={btnClass.join(' ')} alt={this.state.showPersons} onClick = {
           this.togglePersonsHandler
         }
         >Toggle persons</button> 

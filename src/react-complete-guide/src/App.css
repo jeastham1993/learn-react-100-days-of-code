@@ -23,3 +23,11 @@
   background-color: lightgreen;
   color: black;
 }
+
+.App button.Red {
+  background-color: red;
+}
+
+.App button.Red:hover {
+  background-color: salmon;
+}
