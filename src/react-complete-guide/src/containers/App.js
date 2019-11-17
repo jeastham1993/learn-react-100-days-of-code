@@ -2,8 +2,8 @@ import React, {
   Component
 } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
+import Persons from '../components/Persons/Persons' ;
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
 
@@ -67,57 +67,26 @@ class App extends Component {
 
   render() {
     let persons = null;
-    let btnClass = [classes.button];
 
     if (this.state.showPersons) {
-      console.log(classes.Red);
-      btnClass.push(classes.Red);
-
-      persons = ( <div> {
-        this.state.persons.map((person, index) => {
-          return <ErrorBoundary key = {    person.id
-          }>
-              <Person
-            click = {
-              () => this.deletePersonsHandler(index)
-            }
-            name = {
-              person.name
-            }
-            age = {
-              person.age
-            }
-            changed = {
-              (event) => this.nameChangedHandler(event, person.id)
-            }
-            />
-          </ErrorBoundary>
-        })
-      } </div>);
+      persons = (
+        <Persons 
+          persons={this.state.persons} 
+          clicked={this.deletePersonsHandler} 
+          changed={this.nameChangedHandler}>
+          </Persons>
+      );
     }
-
-    let paragraphClasses = [];
-
-    if (this.state.persons.length <= 2){
-      paragraphClasses.push(classes.red);
-    }
-
-    if (this.state.persons.length <= 1)
-    {
-      paragraphClasses.push(classes.bold);
-    }
-    
+   
     return ( 
       <div className = {classes.App} >
-       <h1> Hi, I 'm a React app</h1>  
-        <p className={paragraphClasses.join(' ')}>This is really working.</p>  
-        <button className={btnClass.join(' ')} alt={this.state.showPersons} onClick = {
-          this.togglePersonsHandler
-        }
-        >Toggle persons</button> 
+       <Cockpit 
+        showPersons={this.state.showPersons}
+        persons={this.state.persons}
+        clicked={this.togglePersonsHandler}/>
         {
           persons
-      } 
+        } 
       </div>
   );
 }
