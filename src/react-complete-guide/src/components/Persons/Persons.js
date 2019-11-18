@@ -10,19 +10,30 @@ class Persons extends Component {
         return state;
     }
 
+    componentWillUnmount() {
+        console.log('[Persons.js] component will unmount');
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
         console.log('[Persons.js] should component update');
-
-        return true;
+        if (nextProps.persons !== this.props.persons) {
+            console.log('[Persons.js] yes');
+            return true;
+        } else {
+            console.log('[Persons.js] no');
+            return false;
+        }
     }
 
-    getSnapshotBeforeUpdate(prevProps, prevState){
+    getSnapshotBeforeUpdate(prevProps, prevState) {
         console.log('[Persons.js] get snapshop before update');
 
-        return {message: 'Snapshot'};
+        return {
+            message: 'Snapshot'
+        };
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot){
+    componentDidUpdate(prevProps, prevState, snapshot) {
         console.log('[Persons.js] Component did update', snapshot);
     }
 

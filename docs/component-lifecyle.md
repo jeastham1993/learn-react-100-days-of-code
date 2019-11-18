@@ -26,7 +26,7 @@ Only available in class based components
     - DO cause side effects (http calls etc).
     - DON'T update state.
 
-## Component Update life cycles
+## Component Update life cycle for prop changes
 
 1. getDerivedStateFromProps(props, state).
     - Sync state to props
@@ -37,6 +37,6 @@ Only available in class based components
 3. render()
 4. Update all child components, each one will run it's own life cycle.
 5. getSnapshotBeforeUpdate(prevProps, prevState). Used for last minute DOM ops, not necessarily changes (like scroll location)
-6. componentDidUpdate(). Signals that life cycle is completed.
+6. componentDidUpdate(). Signals that life cycle is completed. Will use very often
     - Here you would make a http request, but be careful not to get stuck in an infinite loop
     - DON'T update state

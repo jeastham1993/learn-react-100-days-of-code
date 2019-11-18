@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import classes from './App.css';
-import Persons from '../components/Persons/Persons' ;
+import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
@@ -29,7 +29,18 @@ class App extends Component {
         age: 25
       },
     ],
-    someOtherProperty: 'hello'
+    someOtherProperty: 'hello',
+    showCockpit: true
+  }
+
+  componentDidUpdate() {
+    console.log('[App.js] component did update...');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] should component update...');
+
+    return true;
   }
 
   nameChangedHandler = (event, id) => {
@@ -76,28 +87,45 @@ class App extends Component {
     let persons = null;
 
     if (this.state.showPersons) {
-      persons = (
-        <Persons 
-          persons={this.state.persons} 
-          clicked={this.deletePersonsHandler} 
-          changed={this.nameChangedHandler}>
-          </Persons>
+      persons = ( <
+        Persons persons = {
+          this.state.persons
+        }
+        clicked = {
+          this.deletePersonsHandler
+        }
+        changed = {
+          this.nameChangedHandler
+        } >
+        <
+        /Persons>
       );
     }
-   
-    return ( 
-      <div className = {classes.App} >
-       <Cockpit 
-        title={this.props.applicationTitle}
-        showPersons={this.state.showPersons}
-        persons={this.state.persons}
-        clicked={this.togglePersonsHandler}/>
-        {
-          persons
-        } 
-      </div>
-  );
-}
+
+    return ( <
+      div className = {
+        classes.App
+      } >
+      <button onClick={() => {this.setState({showCockpit: false})}}>Remove cockpit</button>
+      {this.state.showCockpit ? <
+      Cockpit title = {
+        this.props.applicationTitle
+      }
+      showPersons = {
+        this.state.showPersons
+      }
+      personsLength = {
+        this.state.persons.length
+      }
+      clicked = {
+        this.togglePersonsHandler
+      }
+      /> : null} {
+        persons
+      } <
+      /div>
+    );
+  }
 }
 
 export default App;
