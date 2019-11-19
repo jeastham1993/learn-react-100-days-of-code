@@ -1,9 +1,9 @@
 import React, {
-    Component
+    PureComponent
 } from 'react';
 import Person from './Person/Person';
 
-class Persons extends Component {
+class Persons extends PureComponent {
     static getDerivedStateFromProps(props, state) {
         console.log('[Persons.js] get derived state from props');
 
@@ -12,17 +12,6 @@ class Persons extends Component {
 
     componentWillUnmount() {
         console.log('[Persons.js] component will unmount');
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('[Persons.js] should component update');
-        if (nextProps.persons !== this.props.persons) {
-            console.log('[Persons.js] yes');
-            return true;
-        } else {
-            console.log('[Persons.js] no');
-            return false;
-        }
     }
 
     getSnapshotBeforeUpdate(prevProps, prevState) {

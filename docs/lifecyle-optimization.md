@@ -42,3 +42,9 @@ export default React.memo(cockpit);
 Now, the component will only be re-rendered when any of the props used by the cockpit component or changed.
 
 It can be good practice to always wrap a functional component in React.memo if there is a chance it may not need to re-rendered.
+
+## shouldComponentUpdate alternative
+
+You can extend pureComponent instead of component. A pure component already implement shouldComponentUpdate, checking ALL of the props. 
+
+This is really useful when changes to any props should cause a re-render
