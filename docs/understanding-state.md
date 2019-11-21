@@ -79,3 +79,33 @@ class App extends Component {
 }
 
 ```
+
+## How NOT to use State
+
+When using setState, an update cycle is not immediatly triggered. Instead, it schedules the state update and re-render, which runs when the resources are available. Typically that is instant, but not guaranteed.
+
+If you had a counter in the state object, that needed to be updated. You could do this
+
+``` js
+
+this.setState({ persons: persons, changeCounter: this.state.changeCounter + 1 });
+
+
+````
+
+this.state, in this instance is not guaranteed to be the most up to date state.
+
+The better way to do this is:
+
+``` js
+
+this.setState((prevState, props) => {
+   return { 
+    persons: persons,
+    changeCounter: prevState.changeCounter + 1
+    } 
+  });
+
+````
+
+When updating state directly based on previous state, you can pass an arrow function to the setState method. In there, the prevState is passed as a property and this is guaranteed to be the correct state.

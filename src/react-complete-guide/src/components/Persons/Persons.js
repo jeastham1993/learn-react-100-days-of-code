@@ -1,53 +1,36 @@
-import React, {
-    PureComponent
-} from 'react';
+import React, { PureComponent } from 'react';
+
 import Person from './Person/Person';
 
 class Persons extends PureComponent {
-    static getDerivedStateFromProps(props, state) {
-        console.log('[Persons.js] get derived state from props');
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log('[Persons.js] getSnapshotBeforeUpdate');
+    return { message: 'Snapshot!' };
+  }
 
-        return state;
-    }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('[Persons.js] componentDidUpdate');
+    console.log(snapshot);
+  }
 
-    componentWillUnmount() {
-        console.log('[Persons.js] component will unmount');
-    }
+  componentWillUnmount() {
+    console.log('[Persons.js] componentWillUnmount');
+  }
 
-    getSnapshotBeforeUpdate(prevProps, prevState) {
-        console.log('[Persons.js] get snapshop before update');
+  render() {
+    console.log('[Persons.js] rendering...');
+    return this.props.persons.map((person, index) => {
+      return (
+        <Person
+          click={() => this.props.clicked(index)}
+          name={person.name}
+          age={person.age}
+          key={person.id}
+          changed={event => this.props.changed(event, person.id)}
+        />
+      );
+    });
+  }
+}
 
-        return {
-            message: 'Snapshot'
-        };
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('[Persons.js] Component did update', snapshot);
-    }
-
-    render() {
-        console.log('[Persons.js] rendering...')
-        return this.props.persons.map((person, index) => {
-                return ( <
-                    Person key = {
-                        person.id
-                    }
-                    click = {
-                        () => this.props.clicked(index)
-                    }
-                    name = {
-                        person.name
-                    }
-                    age = {
-                        person.age
-                    }
-                    changed = {
-                        (event) => this.props.changed(event, person.id)
-                    }
-                    /> )
-                })
-        }
-    }
-
-    export default Persons;
+export default Persons;

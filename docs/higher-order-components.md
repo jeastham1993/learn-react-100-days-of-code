@@ -28,13 +28,16 @@ Another good example of Higher Order Components is if a div is created that has 
 
 import React from 'react';
 
-const withClass = props => {
-	<div className={props.classes}>
-		{props.children}
-	</div>
-}
+const withClass = (WrappedComponent, className) => {
+  return props => (
+    <div className={className}>
+      <WrappedComponent/>
+    </div>
+  );
+};
 
 export default withClass;
+
 
 ```
 
@@ -42,6 +45,24 @@ The above could be used:
 
 ``` js
 
-<WithClass classes="Persons"></WithClass>	
+export default withClass(Persons, classes.person);
 
 ```
+
+This will work fine, but causes issues when using properties in the WrappedComponent. To pass properties through the higher order component, simply send the props using the spread operator syntax.
+
+``` js
+
+import React from 'react';
+
+const withClass = (WrappedComponent, className) => {
+  return props => (
+    <div className={className}>
+      <WrappedComponent props={...props}/>
+    </div>
+  );
+};
+
+export default withClass;
+
+````
