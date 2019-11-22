@@ -23,6 +23,67 @@ export default authContext;
 
 ```
 
+## Using Context
+
+In React 16.6 there is a simple way to use context. In class based components a special static property can be added called contextType. 
+
+``` js
+
+class Person extends Component {
+  constructor(props) {
+    super(props);
+    this.inputElementRef = React.createRef();
+  }
+
+  static contextType = AuthContext;
+
+  componentDidMount() {
+    console.log(this.context.authenticated);
+    this.inputElementRef.current.focus();
+  }
+
+   render() {
+    console.log('[Person.js] rendering...');
+    return (
+      <Aux>
+        {this.context.authenticated ? <p>Authenticated</p> : <p>Please login</p>}
+      </Aux>
+    );
+  }
+}
+
+```
+
+In function based components, there is a React hook named useContext with a similar function.
+
+``` js
+
+import React, {
+  useEffect,
+  useRef,
+  useContext
+} from 'react'
+import AuthContext from '../../context/auth-context';
+const cockpit = (props) => {
+
+  const toggleButtonRef = useRef(null);
+  const authContext = useContext(AuthContext);
+
+   return ( 
+    <div className={classes.Cockpit}>
+      <h1>{props.title}</h1>
+      <p className={paragraphClasses.join(' ')}>This is really working!</p>
+      <button ref={toggleButtonRef} className={btnClass} onClick={props.clicked}>
+        Toggle Persons
+      </button>
+      {<button onClick={authContext.login}>Login</button>}
+      
+    </div>
+  )
+}
+
+```
+
 Once created it should be imported as a component. The AuthContext component should then wrap all elements of the application that will need access to it.
 
 ``` js
