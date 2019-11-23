@@ -1,5 +1,7 @@
 # CSS Modules
 
+When using newer versions of React, css modules files must be named <componentName>.module.css
+
 CSS Modules is another way of managing styles. It allows the moving of styles into CSS files, but still controlling when they are imported. 
 
 Dynamic styles are handled simply by having seperate css classes.
