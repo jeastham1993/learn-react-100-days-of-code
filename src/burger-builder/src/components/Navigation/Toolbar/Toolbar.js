@@ -7,14 +7,14 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 export default function toolbar(props) {
     return (
         <header className={classes.Toolbar}>
-            <div>MENU</div>
+            <div onClick={props.sideDrawerStateHandler}>MENU</div>
             <div className={classes.Logo}>
                 <Logo/>
             </div>
             <nav className={classes.DesktopOnly}>
                 <NavigationItems/>
             </nav>
-        </header>
+        </header> 
     )
 }
 

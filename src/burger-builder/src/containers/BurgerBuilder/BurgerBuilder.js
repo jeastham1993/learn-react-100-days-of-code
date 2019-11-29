@@ -12,7 +12,7 @@ const INGREDIENT_PRICES = {
     cheese: 0.4,
     meat: 1.3,
     bacon: 0.7
-} 
+};
 
 class BurgerBuilder extends Component {
 
@@ -23,7 +23,7 @@ class BurgerBuilder extends Component {
             cheese: 0,
             meat: 0
         },
-        totalPrice: 4,
+        totalPrice: 1.50,
         purchaseable: false,
         purchasing: false
     }
@@ -74,7 +74,7 @@ class BurgerBuilder extends Component {
             const priceDeduction = INGREDIENT_PRICES[type];
             const oldPrice = this.state.totalPrice;
 
-            const newPrice = oldPrice + priceDeduction;
+            const newPrice = oldPrice - priceDeduction;
 
             const updatedIngredients = {
                 ...this.state.ingredients
