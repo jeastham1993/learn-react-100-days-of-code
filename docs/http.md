@@ -48,3 +48,85 @@ componentDidMount() {
 }
 
 ```
+
+## Post Request
+
+``` js
+
+postDataHandler = () => {
+    const post = {
+        title: this.state.title,
+        body: this.state.content,
+        author: this.state.author
+    }
+    axios.post('https://jsonplaceholder.typicode.com/posts',  post)
+        .then(response => {
+            console.log(response);
+        })
+}
+
+```
+
+## Dealing with errors
+
+As well as chaining the .then block after a request, the .catch block can also be chained. This can be used to catch any erroring server calls and do something specific with them.
+
+``` js
+
+axios.get('https://jsonplaceholder.typicode.com/postsasdad')
+    .then((response) => {
+        const posts = response.data.slice(0, 4);
+        const updatedPosts = posts.map(post => {
+            return {
+                ...post,
+                author: 'James'
+            }
+        })
+
+        this.setState({posts: updatedPosts});
+    })
+    .catch((error) => {
+        this.setState({error: true});
+    });
+
+```
+
+## Adding interceptors with Axios
+
+Methods that get executed for every single request. Useful for auth and handling errors globally.
+
+``` js
+
+axios.interceptors.request.use(request => {
+    console.log(request);
+
+    return request;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use(response => {
+    console.log(response);
+
+    return response;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+});
+
+```
+
+## Request/Response defaults 
+
+Normally in the index.js, default settings can be added.
+
+``` js
+
+axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+axios.defaults.headers.common["Authorization"] = "AUTH_TOKEN";
+axios.defaults.headers.post["Content-Type"] = 'application/json';
+
+```
+
+Defaults can also be set up on an instance by instance basis, instead of having a single global instance. This can be useful for common settings that may need to be shared between different baseURL's.
