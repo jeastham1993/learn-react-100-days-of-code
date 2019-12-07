@@ -8,12 +8,20 @@ class FullPost extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
+        this.loadData();
+    }
+
+    componentDidUpdate() {
+        this.loadData();
+    }
+
+    loadData() {
         if (this.props.match.params.id) {
-            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.id)) {
+            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id)) {
                 axios.get('https://jsonplaceholder.typicode.com/posts/' + this.props.match.params.id)
                     .then((response) => {
-                        this.setState({loadedPost: response.data});
+                        //this.setState({loadedPost: response.data});
+                        this.props.history.push('/posts');
                     });
             }
         }
@@ -48,5 +56,6 @@ class FullPost extends Component {
         return post;
     }
 }
+
 
 export default FullPost;

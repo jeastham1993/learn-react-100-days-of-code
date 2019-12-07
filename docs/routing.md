@@ -14,6 +14,33 @@ npm install --save react-router react-router-dom
 
 ```
 
+## Serving the app from a sub directory
+
+When serving the app from a sub directory, the BrowserRouter component must be configurued to know about that sub directory. That is done, using the basename property.
+
+``` js
+
+import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Blog from './containers/Blog/Blog';
+
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter basename="/myapp">
+        <div className="App">
+          <Blog />
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
+
+export default App;
+
+
+```
+
 ## Getting Started
 
 To start using routing, the entire app should be wrapped in a BrowserRouter element imported from the react-router-dom package.
@@ -259,3 +286,102 @@ If there are multiple potentially conflicting routes, as in the below snipper, t
 Switch will ensure only a single route gets rendered. React-router analyses the wrapped routes in order, and once a match is found that is returned and the analysis stops. 
 
 Routes can be combined both within and outside of a Switch statement.
+
+## Redirection
+
+React router has a redirect component, it is imported and used as part of a switch statement. 
+
+``` js
+
+import React, { Component } from 'react';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
+import './Blog.css';
+import Posts from './Posts/Posts';
+import NewPost from './NewPost/NewPost';
+
+class Blog extends Component {
+
+    render () {
+        
+
+        return (
+            <div className="Blog">
+                <header>    
+                    <nav>
+                        <ul>
+                            <li><NavLink exact to="/">Posts</NavLink></li>
+                            <li><NavLink exact to={{
+                                pathname: '/new-post',
+                                hash:'#submit',
+                                search: '?quick-submit=true'
+                            }}>New Post</NavLink></li>
+                        </ul>
+                    </nav>
+                </header>
+                <Switch>
+                    <Route path="/new-post" component={NewPost}/>
+                    <Route path="/posts" component={Posts}/>
+                    <Redirect from="/" to="/posts"/>
+                </Switch>
+            </div>
+        );
+    }
+}
+
+export default Blog;
+
+```
+
+Redirect can also be used outside of a switch statement by simply adding to the JSX code. As it is a normal component, it can be conditionally added based on state etc. As soon as the Redirect component is rendered the redirect happens. 
+
+``` js
+
+render () {
+    let redirect = null;
+
+    if (this.state.submitted)
+    {
+        redirect = <Redirect to="/posts"/>;
+    }
+    return (
+        <div className="NewPost">
+            { redirect }
+            <h1>Add a Post</h1>
+            <label>Title</label>
+            <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />
+            <label>Content</label>
+            <textarea rows="4" value={this.state.content} onChange={(event) => this.setState({content: event.target.value})} />
+            <label>Author</label>
+            <select value={this.state.author} onChange={(event) => this.setState({author: event.target.value})}>
+                <option value="Max">Max</option>
+                <option value="Manu">Manu</option>
+            </select>
+            <button onClick={this.postDataHandler}>Add Post</button>
+        </div>
+    );
+}
+
+```
+The page can also be changed using the methods as part of the history object when using BrowserRouter. The benefits of using the push method are that a new page is 'pushed' onto the stack of pages, meaning that the back/forward buttons in the browser will work.
+
+``` js
+
+this.props.history.push('/posts');
+
+```
+
+## Handling Unknown Routes
+
+Unknown routes can be handled using a Route component with no path populated. You can specific a component to be used as a catch all route. 
+
+``` js
+
+<Switch>
+    {
+        this.state.auth === true ? <Route path="/new-post" component={NewPost}/> : null
+    }
+    <Route path="/posts" component={Posts}/>
+    <Route render={() => <h1>Not Found</h1>}/>
+</Switch>
+
+```
