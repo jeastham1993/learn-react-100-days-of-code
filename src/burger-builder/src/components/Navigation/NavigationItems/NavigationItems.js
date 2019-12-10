@@ -1,14 +1,11 @@
 import React from 'react'
-
-import classes  from './NavigationItems.module.css'
-
 import NavigationItem from './NavigationItem/NavigationItem';
 
 export default function navigationItems() {
     return (
-        <ul className={classes.NavigationItems}>
+        <ul class="right" id="nav-mobile">
             <NavigationItem link="/" active>Burger Builder</NavigationItem>
-            <NavigationItem link="/">Checkout</NavigationItem>
+            <NavigationItem link="/orders">My Orders</NavigationItem>
         </ul>
     )
 }

@@ -5,8 +5,8 @@ export default function buildControl( props ) {
     return (
         <div className={classes.BuildControl}>
             <div className={classes.Label}>{props.label}</div>
-            <button className={classes.Less} onClick={props.removed}>Less</button>
-            <button className={classes.More} onClick={props.added}>More</button>
+            <button class="waves-effect waves-light btn" onClick={props.removed}>Less</button>
+            <button class="waves-effect waves-light btn" onClick={props.added}>More</button>
         </div>
     )
 }
