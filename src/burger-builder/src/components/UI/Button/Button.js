@@ -11,6 +11,7 @@ export default function button(props) {
 
     return (
         <button class={classesArray.join(' ')}
-            onClick={props.clicked}>{props.children}</button>
+            onClick={props.clicked}
+            disabled={props.disabled}>{props.children}</button>
     )
 }
